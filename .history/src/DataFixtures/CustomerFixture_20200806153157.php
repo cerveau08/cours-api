@@ -27,16 +27,15 @@ class CustomerFixture extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        
+        $chrono = 1;
 
         for($u = 0; $u < 10; $u++) {
             $user = new User();
-            $chrono = 1;
-            $hash = $this->encoder->encodePassword($user, "password");
+            $hash = $this->encoder->encodePassword($user, "password")
             $user->setFirstName($faker->firstName())
                  ->setLastName($faker->lastName)
                  ->setEmail($faker->email)
-                 ->setPassword($hash);
+                 ->setPassword("password");
 
             $manager->persist($user);
 
@@ -45,9 +44,7 @@ class CustomerFixture extends Fixture
                 $customer->setFirstName($faker->firstName())
                          ->setLastName($faker->lastName())
                          ->setCompany($faker->company())
-                         ->setEmail($faker->email())
-                         ->setUser($user);
-                        
+                         ->setEmail($faker->email());
                 $manager->persist($customer);
     
                 for($i = 0; $i < mt_rand(3, 10); $i++) {

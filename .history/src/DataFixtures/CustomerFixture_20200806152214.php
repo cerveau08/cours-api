@@ -8,35 +8,26 @@ use App\Entity\Invoice;
 use App\Entity\Customer;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class CustomerFixture extends Fixture
 {
-    /**
-     * l'encodeur de mots de passe
-     * 
-     * @var UserPasswordEncoderInterface
-     */
     private $encoder;
-
-    public function __construct(UserPasswordEncoderInterface $encoder)
+    public function __construct(UserPassWordEncoderInterface $encoder)
     {
-        $this->encoder = $encoder;
+        $this->encoder 
     }
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
 
-        
+        $chrono = 1;
 
         for($u = 0; $u < 10; $u++) {
             $user = new User();
-            $chrono = 1;
-            $hash = $this->encoder->encodePassword($user, "password");
             $user->setFirstName($faker->firstName())
                  ->setLastName($faker->lastName)
                  ->setEmail($faker->email)
-                 ->setPassword($hash);
+                 ->setPassword("password");
 
             $manager->persist($user);
 
@@ -45,9 +36,7 @@ class CustomerFixture extends Fixture
                 $customer->setFirstName($faker->firstName())
                          ->setLastName($faker->lastName())
                          ->setCompany($faker->company())
-                         ->setEmail($faker->email())
-                         ->setUser($user);
-                        
+                         ->setEmail($faker->email());
                 $manager->persist($customer);
     
                 for($i = 0; $i < mt_rand(3, 10); $i++) {

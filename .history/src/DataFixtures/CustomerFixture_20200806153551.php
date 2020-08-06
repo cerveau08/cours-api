@@ -45,9 +45,8 @@ class CustomerFixture extends Fixture
                 $customer->setFirstName($faker->firstName())
                          ->setLastName($faker->lastName())
                          ->setCompany($faker->company())
-                         ->setEmail($faker->email())
-                         ->setUser($user);
-                        
+                         ->setEmail($faker->email());
+                         ->
                 $manager->persist($customer);
     
                 for($i = 0; $i < mt_rand(3, 10); $i++) {

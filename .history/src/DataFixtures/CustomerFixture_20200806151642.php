@@ -1,0 +1,34 @@
+<?php
+
+namespace App\DataFixtures;
+
+use Faker\Factory;
+use App\Entity\User;
+use App\Entity\Invoice;
+use App\Entity\Customer;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+
+class CustomerFixture extends Fixture
+{
+    public function load(ObjectManager $manager)
+    {
+        $faker = Factory::create('fr_FR');
+
+        $chrono = 1;
+
+        for($u = 0; $u < 10; $u++) {
+            $user = new User();
+            $user->setFirstName($faker->firstName())
+                 ->setLastName($faker->lastName)
+                 ->setEmail($faker->email)
+                 ->setPassword("password");
+
+            $manager->persist($user);
+        }
+
+        
+
+        $manager->flush();
+    }
+}
